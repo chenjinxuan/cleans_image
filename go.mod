@@ -1,4 +1,4 @@
-module git.gaoding.com/ai-infrastructure/cleans_image
+module github.com/chenjinxuan/cleans_image
 
 go 1.13
 
