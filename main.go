@@ -69,6 +69,7 @@ func cleans() error {
 		fmt.Println("get client fail " + err.Error())
 		return err
 	}
+	defer cli.Close()
 	cMap, err := getAllContainers(cli)
 	if err != nil {
 		fmt.Println("get container list fail " + err.Error())
