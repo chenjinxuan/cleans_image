@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: cleans-image
+  labels:
+    app: cleans-image
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: cleans-image
+    spec:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      containers:
+        - name: cleans-image
+          image: %s
+          args:
+            - "--cron=0 0 0 * * *"
+          volumeMounts:
+            - name: sock
+              mountPath: /var/run/docker.sock
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: sock
+          hostPath:
+            path: /var/run/docker.sock
